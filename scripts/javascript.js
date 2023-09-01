@@ -10,6 +10,7 @@ let num2Set = false;
 let operand = null;
 let operandSet = false;
 let result = '';
+let operationResult = 0;
 let computation = '';
 
 
@@ -50,10 +51,14 @@ function getButtonText(e) {
         }
         // Second number
         if (num1Set && operandSet && !num2Set) {
-            if (e.target.innerText !== '=') {
-                    num2String += e.target.innerText;
-                    computation += e.target.innerText;
-                    lowerDisplay.textContent = computation;
+            if (e.target.innerText !== '='
+                    && e.target.innerText !== '+'
+                    && e.target.innerText !== '-'
+                    && e.target.innerText !== 'x'
+                    && e.target.innerText !== '/') {
+                num2String += e.target.innerText;
+                computation += e.target.innerText;
+                lowerDisplay.textContent = computation;
             }
             else {
                 num2 = parseInt(num2String);
@@ -74,8 +79,17 @@ function getButtonText(e) {
         }
 
         // Call operations
-        if (e.target.innerText === '=') {
-            Operate(num1, num2, operand);
+        if (num1Set && num2Set && operandSet) {
+            num1 = Operate(num1, num2, operand);
+            num2 = '';
+            num2String = '';
+            num2Set = false;
+            operand = e.target.innerText;
+            // operandSet = false;
+            if (operand !== '=') {
+                lowerDisplay.textContent = num1 + ' ' + operand;
+                // lowerDisplay.textContent += operand;
+            }
         }
     }
     else {
@@ -97,6 +111,7 @@ function getButtonText(e) {
 
 // Math and Operate functions, per assignment guidelines
 function Operate(a, b, op) {
+    console.log("in operate");
     switch (op) {
         case '+':
             Add(a, b);
@@ -114,6 +129,7 @@ function Operate(a, b, op) {
             break;
     }
     upperDisplay.textContent = result;
+    return result;
 }
 
 function Add(a, b) {
