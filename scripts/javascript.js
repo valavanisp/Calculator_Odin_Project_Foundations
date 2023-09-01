@@ -84,11 +84,10 @@ function getButtonText(e) {
             num2 = '';
             num2String = '';
             num2Set = false;
+            computation = num1 + ' ' + operand + ' ';
             operand = e.target.innerText;
-            // operandSet = false;
             if (operand !== '=') {
-                lowerDisplay.textContent = num1 + ' ' + operand;
-                // lowerDisplay.textContent += operand;
+                lowerDisplay.textContent = computation;
             }
         }
     }
