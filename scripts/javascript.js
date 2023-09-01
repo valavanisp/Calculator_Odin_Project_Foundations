@@ -50,7 +50,7 @@ function getButtonText(e) {
         || e.target.innerText === '/')) {
 
             computation += e.target.innerText + ' ';
-        lowerDisplay.textContent = computation;
+            lowerDisplay.textContent = computation;
 
         
             operand = e.target.innerText;
