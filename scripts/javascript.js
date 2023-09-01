@@ -31,70 +31,90 @@ buttons.forEach((button) => {
 
 // Get info from buttons
 function getButtonText(e) {
-    // First number
-    if (!operandSet && !num1Set) {
-        if (e.target.innerText !== '+'
-                && e.target.innerText !== '-'
-                && e.target.innerText !== 'x'
-                && e.target.innerText !== '/') {
-            num1String += e.target.innerText;
-            computation += e.target.innerText;
-            lowerDisplay.textContent = computation;
-        }
-        else {
-            num1 = parseInt(num1String);
-            computation += ' ';
-            num1Set = true;
-        }
-    }
-    // Second number
-    else if (num1Set && operandSet && !num2Set) {
-        if (e.target.innerText !== '=') {
-                num2String += e.target.innerText;
+    if (e.target.innerText !== 'Clear') {
+        // First number
+        if (!operandSet && !num1Set) {
+            if (e.target.innerText !== '+'
+                    && e.target.innerText !== '-'
+                    && e.target.innerText !== 'x'
+                    && e.target.innerText !== '/') {
+                num1String += e.target.innerText;
                 computation += e.target.innerText;
                 lowerDisplay.textContent = computation;
+            }
+            else {
+                num1 = parseInt(num1String);
+                computation += ' ';
+                num1Set = true;
+            }
         }
-        else {
-            num2 = parseInt(num2String);
-            num2Set = true;
+        // Second number
+        if (num1Set && operandSet && !num2Set) {
+            if (e.target.innerText !== '=') {
+                    num2String += e.target.innerText;
+                    computation += e.target.innerText;
+                    lowerDisplay.textContent = computation;
+            }
+            else {
+                num2 = parseInt(num2String);
+                num2Set = true;
+            }
+        }
+
+        // Operand
+        if (!operandSet &&
+            (e.target.innerText === '+'
+            || e.target.innerText === '-'
+            || e.target.innerText === 'x'
+            || e.target.innerText === '/')) {
+                computation += e.target.innerText + ' ';
+                lowerDisplay.textContent = computation;
+                operand = e.target.innerText;
+                operandSet = true;
+        }
+
+        // Call operations
+        if (e.target.innerText === '=') {
+            Operate(num1, num2, operand);
         }
     }
-
-    // Operand
-    if (!operandSet &&
-        (e.target.innerText === '+'
-        || e.target.innerText === '-'
-        || e.target.innerText === 'x'
-        || e.target.innerText === '/')) {
-            computation += e.target.innerText + ' ';
-            lowerDisplay.textContent = computation;
-            operand = e.target.innerText;
-            operandSet = true;
-        }
-
-    // Call operations
-    if (e.target.innerText === '=') {
-        switch (operand) {
-            case '+':
-                console.log("Result: " + Add(num1, num2));
-                break;
-            case '-':
-                console.log(Subtract(num1, num2));
-                break;
-            case 'x':
-                console.log(Multiply(num1, num2));
-                break;
-            case '/':
-                console.log(Divide(num1, num2));
-                break;
-            default:
-                break;
-        }
-        upperDisplay.textContent = result;
+    else {
+        upperDisplay.textContent = '0';
+        lowerDisplay.textContent = '0';
+        num1 = '';
+        num1String = '';
+        num1Set = false;
+        num2 = '';
+        num2String = '';
+        num2Set = false;
+        operand = null;
+        operandSet = false;
+        result = '';
+        computation = '';
     }
 }
 
-// Math functions, per assignment guidelines
+// Math and Operate functions, per assignment guidelines
+function Operate(a, b, op) {
+    switch (op) {
+        case '+':
+            console.log("Result: " + Add(a, b));
+            break;
+        case '-':
+            console.log(Subtract(a, b));
+            break;
+        case 'x':
+            console.log(Multiply(a, b));
+            break;
+        case '/':
+            console.log(Divide(a, b));
+            break;
+        default:
+            break;
+    }
+    upperDisplay.textContent = result;
+}
+
 function Add(a, b) {
     console.log("In addition");
     result = a + b;
