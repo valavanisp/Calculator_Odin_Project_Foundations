@@ -12,6 +12,7 @@ let operandSet = false;
 let result = '';
 let operationResult = 0;
 let computation = '';
+let equalPressed = false;
 
 
 //
@@ -33,6 +34,18 @@ buttons.forEach((button) => {
 // Get info from buttons
 function getButtonText(e) {
     if (e.target.innerText !== 'Clear') {
+        // Equal sign pressed, check if starting from scratch or not
+        if (equalPressed) {
+            if (e.target.innerText !== '+'
+                    && e.target.innerText !== '-'
+                    && e.target.innerText !== 'x'
+                    && e.target.innerText !== '/'
+                    && e.target.innerText !== '=') {
+                Clear();
+            }
+            equalPressed = false;
+        }
+
         // First number
         if (!operandSet && !num1Set) {
             if (e.target.innerText !== '+'
@@ -84,9 +97,11 @@ function getButtonText(e) {
             num2 = '';
             num2String = '';
             num2Set = false;
+
             if (e.target.innerText === '=') {
                 operand = '';
                 lowerDisplay.textContent = computation;
+                equalPressed = true;
             }
             else if (e.target.innerText !== '=') {
                 operand = e.target.innerText;
@@ -97,18 +112,7 @@ function getButtonText(e) {
     }
     else {
         // Reset calculator
-        upperDisplay.textContent = '0';
-        lowerDisplay.textContent = '0';
-        num1 = '';
-        num1String = '';
-        num1Set = false;
-        num2 = '';
-        num2String = '';
-        num2Set = false;
-        operand = null;
-        operandSet = false;
-        result = '';
-        computation = '';
+        Clear();
     }
 }
 
@@ -132,6 +136,21 @@ function Operate(a, b, op) {
     }
     upperDisplay.textContent = result;
     return result;
+}
+
+function Clear() {
+    upperDisplay.textContent = '0';
+    lowerDisplay.textContent = '0';
+    num1 = '';
+    num1String = '';
+    num1Set = false;
+    num2 = '';
+    num2String = '';
+    num2Set = false;
+    operand = null;
+    operandSet = false;
+    result = '';
+    computation = '';
 }
 
 function Add(a, b) {
