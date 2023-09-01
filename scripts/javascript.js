@@ -84,9 +84,13 @@ function getButtonText(e) {
             num2 = '';
             num2String = '';
             num2Set = false;
-            computation = num1 + ' ' + operand + ' ';
-            operand = e.target.innerText;
-            if (operand !== '=') {
+            if (e.target.innerText === '=') {
+                operand = '';
+                lowerDisplay.textContent = computation;
+            }
+            else if (e.target.innerText !== '=') {
+                operand = e.target.innerText;
+                computation = num1 + ' ' + operand + ' ';
                 lowerDisplay.textContent = computation;
             }
         }
@@ -110,7 +114,6 @@ function getButtonText(e) {
 
 // Math and Operate functions, per assignment guidelines
 function Operate(a, b, op) {
-    console.log("in operate");
     switch (op) {
         case '+':
             Add(a, b);
