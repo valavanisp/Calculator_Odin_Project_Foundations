@@ -2,7 +2,12 @@
 let num1 = null;
 let num2 = null;
 let result = null;
+let computation = '';
 let operand = null;
+
+// CSS Display sections
+const upperDisplay = document.querySelector('.upper-display');
+const lowerDisplay = document.querySelector('.lower-display');
 
 // read in button clicks
 const buttons = document.querySelectorAll('button');
@@ -16,12 +21,22 @@ function getButtonText(e) {
 
     // If operand is null, then we haven't set num1 yet
     if (operand === null && num1 === null) {
+
+        computation += e.target.innerText + ' ';
+        lowerDisplay.textContent = computation;
+
+
         num1 = parseInt(e.target.innerText);
         // console.log(num1);
         // console.log(num2);
         // console.log(operand);
     }
     else if (num1 !== null && operand !== null && num2 === null) {
+
+        computation += e.target.innerText + ' ';
+        lowerDisplay.textContent = computation;
+
+
         num2 = parseInt(e.target.innerText);
         // console.log(num1);
         // console.log(num2);
@@ -33,6 +48,11 @@ function getButtonText(e) {
         || e.target.innerText === '-'
         || e.target.innerText === 'x'
         || e.target.innerText === '/')) {
+
+            computation += e.target.innerText + ' ';
+        lowerDisplay.textContent = computation;
+
+        
             operand = e.target.innerText;
             // console.log(num1);
             // console.log(num2);
@@ -56,6 +76,7 @@ function getButtonText(e) {
             default:
                 break;
         }
+        upperDisplay.textContent = result;
     }
 }
 
@@ -65,7 +86,8 @@ function Add(a, b) {
     // console.log(a);
     // console.log(b);
     // console.log(operand);
-    return a + b;
+    result = a + b;
+    return result;
 }
 
 function Subtract(a, b) {
@@ -73,7 +95,8 @@ function Subtract(a, b) {
     // console.log(a);
     // console.log(b);
     // console.log(operand);
-    return a - b;
+    result = a - b;
+    return result;
 }
 
 function Multiply(a, b) {
@@ -81,7 +104,8 @@ function Multiply(a, b) {
     // console.log(a);
     // console.log(b);
     // console.log(operand);
-    return a * b;
+    result = a * b;
+    return result;
 }
 
 function Divide(a, b) {
@@ -89,5 +113,6 @@ function Divide(a, b) {
     // console.log(a);
     // console.log(b);
     // console.log(operand);
-    return a / b;
+    result = a / b;
+    return result;
 }
