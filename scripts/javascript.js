@@ -79,6 +79,7 @@ function getButtonText(e) {
         }
     }
     else {
+        // Reset calculator
         upperDisplay.textContent = '0';
         lowerDisplay.textContent = '0';
         num1 = '';
@@ -98,16 +99,16 @@ function getButtonText(e) {
 function Operate(a, b, op) {
     switch (op) {
         case '+':
-            console.log("Result: " + Add(a, b));
+            Add(a, b);
             break;
         case '-':
-            console.log(Subtract(a, b));
+            Subtract(a, b);
             break;
         case 'x':
-            console.log(Multiply(a, b));
+            Multiply(a, b);
             break;
         case '/':
-            console.log(Divide(a, b));
+            Divide(a, b);
             break;
         default:
             break;
@@ -116,25 +117,21 @@ function Operate(a, b, op) {
 }
 
 function Add(a, b) {
-    console.log("In addition");
     result = a + b;
     return result;
 }
 
 function Subtract(a, b) {
-    console.log("In subtraction");
     result = a - b;
     return result;
 }
 
 function Multiply(a, b) {
-    console.log("In Multiplication");
     result = a * b;
     return result;
 }
 
 function Divide(a, b) {
-    console.log("In Division");
     result = a / b;
     return result;
 }
